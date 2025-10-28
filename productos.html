@@ -5,274 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos - AgroNet</title>
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
-    <style>
-      *{
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          font-family: sans-serif;
-          letter-spacing: 0.03em;
-          line-height: 1.3;
-      }
-
-      p{
-          padding: 5px;
-      }
-
-      img{
-          border-radius: 4px;
-      }
-
-      .button{
-          background:#DF691A;
-          text-decoration: none;
-          padding: 15px;
-          margin-top: 15px;
-          border-radius: 5px;
-          color:  #f2f2f2;
-          font-weight: 700;
-      }
-      .button:hover{
-          cursor: pointer;
-          text-decoration: none;
-          background-color: #9a4912;
-          color: #f2f2f2;
-      }
-
-      /*menu-carrito*/
-      .dropdown-menu{
-          position: absolute;
-          top: 100%;
-          right: 0;
-          display: none;
-          height: 400px;
-          min-width: 10rem;
-          padding: .5rem 0;
-          margin: .125rem 0 0;
-          font-size: 1rem;
-          color: #212529;
-          text-align: left;
-          list-style: none;
-          background-color: #fff;
-          background-clip: padding-box;
-          border: 1px solid rgba(0,0,0,.15);
-          border-radius: .25rem;
-          overflow-y: scroll;
-      }
-      #vaciar-carrito, #procesar-pedido {
-          padding: 8px;
-          margin-top:2px;
-          text-align: center;
-      }
-      .dropdown-menu.show {
-          display: block;
-      }
-      .button-vaciar{
-          background:#17A2B8;
-          text-decoration: none;
-          padding: 15px;
-          margin-top: 15px;
-          border-radius: 5px;
-          color:  #f2f2f2;
-          font-weight: 700;
-      }
-      .button-vaciar:hover{
-          cursor: pointer;
-          text-decoration: none;
-          background-color: #0c505a;
-          color: #f2f2f2;
-      }
-      .button-pedido{
-          background:#28A745;
-          text-decoration: none;
-          padding: 15px;
-          margin-top: 15px;
-          border-radius: 5px;
-          color:  #f2f2f2;
-          font-weight: 700;
-      }
-      .button-pedido:hover{
-          cursor: pointer;
-          text-decoration: none;
-          background-color: #1e612e;
-          color: #f2f2f2;
-      }
-
-      /*productos-modal*/
-      .modal{
-          width: 100%;
-          min-height: 100vh;
-          background: rgba(0,0,0,0.9);
-          position: fixed;
-          top: 0;
-          left: 0;
-          display: none;
-      }
-      .modal-content{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-      }
-      .modal-img{
-          width: 50%;
-      }
-      .modal-boton{
-          position: absolute;
-          top: 10px;
-          right:10px;
-          color:white;
-          cursor: pointer;
-          font-weight: bold;
-          width: 50px;
-          height: 50px;
-          line-height: 50px;
-          background:#DF691A;
-          font-size: 2em;
-          text-align: center;
-          border-radius: 50%;
-          font-family: monospace;
-      }
-      .modal-open{
-          display: block;
-      }
-
-      /*productos-card*/
-      .container-productos{
-          width: 100%;
-          max-width: 1200px;
-          height: auto;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          margin: auto;
-      }
-      .container-productos .card{
-          width: 260px;
-          height: 390px;
-          background: #4E5D6C;
-          color:#f2f2f2;
-          border-radius: 8px;
-          border:1px solid  #DF691A;
-          box-shadow: 0 2px 2px rgba(0,0,0,0.2);
-          overflow: hidden;
-          margin: 20px;
-          text-align: center;
-          align-items: center;
-          transition: all 0.25s;
-      }
-      .container-productos .card:hover{
-          transform: translateY(-15px);
-          box-shadow: 0 12px 16px rgba(0,0,0,0.2);
-      }
-      .container-productos .card img{
-          width: 260px;
-          height: 190px;
-          cursor: pointer;
-      }
-      .container-productos .card h5{
-          font-weight: 600;
-          padding: 5px;
-      }
-      .container-productos .card p{
-          padding-top: 5px;
-      }
-      .container-productos .card a{
-          padding:10px;
-          display: block;
-          width: 50%;
-          margin: 0 auto;
-      }
-
-      /*header y footer básicos*/
-      header {
-          background: #333;
-          color: #f2f2f2;
-          padding: 1rem 0;
-          position: fixed;
-          left: 0;
-          top: 0;
-          right: 0;
-          z-index: 100;
-      }
-      header a {
-          color: #cccccc;
-          text-decoration: none;
-      }
-      .menu {
-          width: 95%;
-          max-width: 1200px;
-          margin: 0 auto;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-      }
-      .logo {
-          color: #f2f2f2;
-          font-size: 24px;
-          font-weight: 700;
-      }
-      .navigation ul {
-          margin: 0;
-          padding: 0;
-          list-style: none;
-          display: flex;
-          align-items: center;
-      }
-      .navigation ul li {
-          display: inline-block;
-          margin: 0 15px;
-      }
-      .navigation ul li a {
-          display: block;
-          font-weight: 700;
-          color: #cccccc;
-      }
-      .navigation ul li a:hover {
-          color: #f2f2f2;
-      }
-      .car {
-          position: relative;
-      }
-      .bi-cart3 {
-          color: #cccccc;
-          cursor: pointer;
-      }
-      .bi-cart3:hover {
-          color: #f2f2f2;
-      }
-
-      main {
-          padding-top: 6rem;
-          padding-bottom: 3rem;
-      }
-
-      footer {
-          background: #333;
-          color: #f2f2f2;
-          padding: 2rem 0;
-          text-align: center;
-      }
-      footer a {
-          color: #DF691A;
-          text-decoration: none;
-      }
-
-      @media (max-width: 800px) {
-          .container-productos .card {
-              width: 200px;
-              height: 300px;
-              margin: 10px;
-          }
-          .container-productos .card img {
-              width: 200px;
-              height: 140px;
-          }
-          .modal-img {
-              width: 90%;
-          }
-      }
-    </style>
+    
   </head>
   <body>
     <header>
@@ -320,7 +53,7 @@
         <div class="container-productos" id="lista-productos">
 
           <div class="card">
-            <img src="https://images.unsplash.com/photo-1488459716781-6a19fb8e8b6f?w=300&h=300&fit=crop" alt="Café Orgánico" class="card-img">
+            <img src="https://www.amantesdelcafe.org/wp-content/uploads/2015/09/cafe-de-colombia-640x350.jpeg" alt="Café Orgánico" class="card-img">
             <h5>Café Orgánico Premium</h5>
             <p>SKU: CAF-001-250</p>
             <p>$<small class="precio">28000</small></p>
@@ -328,7 +61,7 @@
           </div>
 
           <div class="card">
-            <img src="https://images.unsplash.com/photo-1464454709131-ffd692591ee5?w=300&h=300&fit=crop" alt="Plátanos Frescos" class="card-img">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.mrzLXNYqJe1jP884136iYwHaKj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Plátanos Frescos" class="card-img">
             <h5>Plátanos Frescos del Valle</h5>
             <p>SKU: PLT-002-KG</p>
             <p>$<small class="precio">5000</small></p>
@@ -336,7 +69,7 @@
           </div>
 
           <div class="card">
-            <img src="https://images.unsplash.com/photo-1599599810694-cd7e4c1d4484?w=300&h=300&fit=crop" alt="Miel Orgánica" class="card-img">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.T2WxpCJA9REiRi_GcrBehgHaLH?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Miel Orgánica" class="card-img">
             <h5>Miel Orgánica Local 500ml</h5>
             <p>SKU: MIE-003-500</p>
             <p>$<small class="precio">35000</small></p>
@@ -376,7 +109,7 @@
           </div>
 
           <div class="card">
-            <img src="https://images.unsplash.com/photo-1599599810989-5ac4c0d8c2cc?w=300&h=300&fit=crop" alt="Jugo Natural" class="card-img">
+            <img src="https://tse2.mm.bing.net/th/id/OIP.25r-hK-qsRtw5ymOn1gKlwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Jugo Natural" class="card-img">
             <h5>Jugo Natural de Naranja Fresco</h5>
             <p>SKU: JUG-008-LT</p>
             <p>$<small class="precio">15000</small></p>
