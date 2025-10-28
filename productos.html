@@ -1,27 +1,288 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
+    <title>Productos - AgroNet</title>
     <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+      *{
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: sans-serif;
+          letter-spacing: 0.03em;
+          line-height: 1.3;
+      }
+
+      p{
+          padding: 5px;
+      }
+
+      img{
+          border-radius: 4px;
+      }
+
+      .button{
+          background:#DF691A;
+          text-decoration: none;
+          padding: 15px;
+          margin-top: 15px;
+          border-radius: 5px;
+          color:  #f2f2f2;
+          font-weight: 700;
+      }
+      .button:hover{
+          cursor: pointer;
+          text-decoration: none;
+          background-color: #9a4912;
+          color: #f2f2f2;
+      }
+
+      /*menu-carrito*/
+      .dropdown-menu{
+          position: absolute;
+          top: 100%;
+          right: 0;
+          display: none;
+          height: 400px;
+          min-width: 10rem;
+          padding: .5rem 0;
+          margin: .125rem 0 0;
+          font-size: 1rem;
+          color: #212529;
+          text-align: left;
+          list-style: none;
+          background-color: #fff;
+          background-clip: padding-box;
+          border: 1px solid rgba(0,0,0,.15);
+          border-radius: .25rem;
+          overflow-y: scroll;
+      }
+      #vaciar-carrito, #procesar-pedido {
+          padding: 8px;
+          margin-top:2px;
+          text-align: center;
+      }
+      .dropdown-menu.show {
+          display: block;
+      }
+      .button-vaciar{
+          background:#17A2B8;
+          text-decoration: none;
+          padding: 15px;
+          margin-top: 15px;
+          border-radius: 5px;
+          color:  #f2f2f2;
+          font-weight: 700;
+      }
+      .button-vaciar:hover{
+          cursor: pointer;
+          text-decoration: none;
+          background-color: #0c505a;
+          color: #f2f2f2;
+      }
+      .button-pedido{
+          background:#28A745;
+          text-decoration: none;
+          padding: 15px;
+          margin-top: 15px;
+          border-radius: 5px;
+          color:  #f2f2f2;
+          font-weight: 700;
+      }
+      .button-pedido:hover{
+          cursor: pointer;
+          text-decoration: none;
+          background-color: #1e612e;
+          color: #f2f2f2;
+      }
+
+      /*productos-modal*/
+      .modal{
+          width: 100%;
+          min-height: 100vh;
+          background: rgba(0,0,0,0.9);
+          position: fixed;
+          top: 0;
+          left: 0;
+          display: none;
+      }
+      .modal-content{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+      }
+      .modal-img{
+          width: 50%;
+      }
+      .modal-boton{
+          position: absolute;
+          top: 10px;
+          right:10px;
+          color:white;
+          cursor: pointer;
+          font-weight: bold;
+          width: 50px;
+          height: 50px;
+          line-height: 50px;
+          background:#DF691A;
+          font-size: 2em;
+          text-align: center;
+          border-radius: 50%;
+          font-family: monospace;
+      }
+      .modal-open{
+          display: block;
+      }
+
+      /*productos-card*/
+      .container-productos{
+          width: 100%;
+          max-width: 1200px;
+          height: auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          margin: auto;
+      }
+      .container-productos .card{
+          width: 260px;
+          height: 390px;
+          background: #4E5D6C;
+          color:#f2f2f2;
+          border-radius: 8px;
+          border:1px solid  #DF691A;
+          box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+          overflow: hidden;
+          margin: 20px;
+          text-align: center;
+          align-items: center;
+          transition: all 0.25s;
+      }
+      .container-productos .card:hover{
+          transform: translateY(-15px);
+          box-shadow: 0 12px 16px rgba(0,0,0,0.2);
+      }
+      .container-productos .card img{
+          width: 260px;
+          height: 190px;
+          cursor: pointer;
+      }
+      .container-productos .card h5{
+          font-weight: 600;
+          padding: 5px;
+      }
+      .container-productos .card p{
+          padding-top: 5px;
+      }
+      .container-productos .card a{
+          padding:10px;
+          display: block;
+          width: 50%;
+          margin: 0 auto;
+      }
+
+      /*header y footer básicos*/
+      header {
+          background: #333;
+          color: #f2f2f2;
+          padding: 1rem 0;
+          position: fixed;
+          left: 0;
+          top: 0;
+          right: 0;
+          z-index: 100;
+      }
+      header a {
+          color: #cccccc;
+          text-decoration: none;
+      }
+      .menu {
+          width: 95%;
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+      .logo {
+          color: #f2f2f2;
+          font-size: 24px;
+          font-weight: 700;
+      }
+      .navigation ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          display: flex;
+          align-items: center;
+      }
+      .navigation ul li {
+          display: inline-block;
+          margin: 0 15px;
+      }
+      .navigation ul li a {
+          display: block;
+          font-weight: 700;
+          color: #cccccc;
+      }
+      .navigation ul li a:hover {
+          color: #f2f2f2;
+      }
+      .car {
+          position: relative;
+      }
+      .bi-cart3 {
+          color: #cccccc;
+          cursor: pointer;
+      }
+      .bi-cart3:hover {
+          color: #f2f2f2;
+      }
+
+      main {
+          padding-top: 6rem;
+          padding-bottom: 3rem;
+      }
+
+      footer {
+          background: #333;
+          color: #f2f2f2;
+          padding: 2rem 0;
+          text-align: center;
+      }
+      footer a {
+          color: #DF691A;
+          text-decoration: none;
+      }
+
+      @media (max-width: 800px) {
+          .container-productos .card {
+              width: 200px;
+              height: 300px;
+              margin: 10px;
+          }
+          .container-productos .card img {
+              width: 200px;
+              height: 140px;
+          }
+          .modal-img {
+              width: 90%;
+          }
+      }
+    </style>
   </head>
   <body>
     <header>
-      <div class="menu logo-nav">
-        <a href="index.html" class="logo">PETSHOP</a>
-        <label class="menu-icon"><span class="fas fa-bars icomin"></span></label>
+      <div class="menu">
+        <a href="index.html" class="logo">AgroNet</a>
         <nav class="navigation">
           <ul>
-            <li><a href="nosotros.html">Nosotros</a></li>
-            <li><a href="productos.html">Productos</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-            <li class="search-icon">
-              <input type="search" placeholder="Search">
-              <label class="icon">
-                <span class="fas fa-search"></span>
-              </label>
-            </li>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="https://teamucc.github.io/AgroNet/team">Equipo</a></li>
+            <li><a href="#contacto">Contacto</a></li>
             <li class="car" >
               <svg class="bi bi-cart3" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
@@ -40,7 +301,7 @@
                   </table>
 
                   <a href="#" id="vaciar-carrito" class="button-vaciar">Vaciar Carrito</a>
-                  <a href="#" id="procesar-pedido" class="button-pedido">Procesar Compra</a>
+                  <a href="carrito.html" id="procesar-pedido" class="button-pedido">Procesar Compra</a>
               </div>
             </li>
           </ul>
@@ -48,9 +309,7 @@
       </div>
     </header>
 
-
-<main>
-
+    <main>
         <div class="modal" id="modal">
           <div class="modal-content">
             <img src="" alt="" class="modal-img" id="modal-img">
@@ -61,105 +320,97 @@
         <div class="container-productos" id="lista-productos">
 
           <div class="card">
-            <img src="assets/img/ropa1.jpeg" class="card-img">
-            <h5>Ropa Hello Kitty</h5>
-            <p>SKU: ROP0000074</p>
-            <p>S/.<small class="precio">18</small></p>
+            <img src="https://images.unsplash.com/photo-1488459716781-6a19fb8e8b6f?w=300&h=300&fit=crop" alt="Café Orgánico" class="card-img">
+            <h5>Café Orgánico Premium</h5>
+            <p>SKU: CAF-001-250</p>
+            <p>$<small class="precio">28000</small></p>
             <a href="#" class="button agregar-carrito" data-id="1">Comprar</a>
           </div>
+
           <div class="card">
-            <img src="assets/img/juguete1.png" class="card-img">
-            <h5>Pelota Soga Nudo Grande Colores</h5>
-            <p>SKU: JUG0000005</p>
-            <p>S/.<small class="precio">14</small></p>
+            <img src="https://images.unsplash.com/photo-1464454709131-ffd692591ee5?w=300&h=300&fit=crop" alt="Plátanos Frescos" class="card-img">
+            <h5>Plátanos Frescos del Valle</h5>
+            <p>SKU: PLT-002-KG</p>
+            <p>$<small class="precio">5000</small></p>
             <a href="#" class="button agregar-carrito" data-id="2">Comprar</a>
           </div>
+
           <div class="card">
-            <img src="assets/img/alimento1.webp" class="card-img">
-            <h5>Pack Yogy Helado para perros 100% Natural 100g de Barker</h5>
-            <p>SKU: BPY4UND</p>
-            <p>S/.<small class="precio">24</small></p>
+            <img src="https://images.unsplash.com/photo-1599599810694-cd7e4c1d4484?w=300&h=300&fit=crop" alt="Miel Orgánica" class="card-img">
+            <h5>Miel Orgánica Local 500ml</h5>
+            <p>SKU: MIE-003-500</p>
+            <p>$<small class="precio">35000</small></p>
             <a href="#" class="button agregar-carrito" data-id="3">Comprar</a>
           </div>
 
           <div class="card">
-            <img src="assets/img/alimento2.webp" class="card-img">
-            <h5>Dingo Dental Mini Bones 7und x70gr</h5>
-            <p>SKU: DDMB7U70GR</p>
-            <p>S/.<small class="precio">26</small></p>
+            <img src="https://images.unsplash.com/photo-1464582883107-8345a36fabb4?w=300&h=300&fit=crop" alt="Tomates Hidropónicos" class="card-img">
+            <h5>Tomates Hidropónicos Frescos</h5>
+            <p>SKU: TOM-004-KG</p>
+            <p>$<small class="precio">8000</small></p>
             <a href="#" class="button agregar-carrito" data-id="4">Comprar</a>
           </div>
+
           <div class="card">
-            <img src="assets/img/juguete3.webp" class="card-img">
-            <h5>Hartz - Duraplay Ball Medium</h5>
-            <p>SKU: HDB04</p>
-            <p>S/.<small class="precio">35</small></p>
+            <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=300&h=300&fit=crop" alt="Arroz Integral" class="card-img">
+            <h5>Arroz Integral Ecológico</h5>
+            <p>SKU: ARR-005-KG</p>
+            <p>$<small class="precio">12000</small></p>
             <a href="#" class="button agregar-carrito" data-id="5">Comprar</a>
           </div>
+
           <div class="card">
-            <img src="assets/img/ropa2.jpeg" class="card-img">
-            <h5>Ropa Avengers</h5>
-            <p>SKU: ROP0000023</p>
-            <p>S/.<small class="precio">21</small></p>
+            <img src="https://images.unsplash.com/photo-1585518419759-cd0c9e7a16fe?w=300&h=300&fit=crop" alt="Lechuga Fresca" class="card-img">
+            <h5>Lechuga Verde Fresca</h5>
+            <p>SKU: LEC-006-UND</p>
+            <p>$<small class="precio">6000</small></p>
             <a href="#" class="button agregar-carrito" data-id="6">Comprar</a>
           </div>
 
           <div class="card">
-            <img src="assets/img/juguete2.webp" class="card-img">
-            <h5>Animal Planet Juguete P/Mascota Medium</h5>
-            <p>SKU: AP-D794-011</p>
-            <p>S/.<small class="precio">29</small></p>
+            <img src="https://images.unsplash.com/photo-1599599810694-cd7e4c1d4484?w=300&h=300&fit=crop" alt="Aguacates Orgánicos" class="card-img">
+            <h5>Aguacates Orgánicos Hass</h5>
+            <p>SKU: AGU-007-KG</p>
+            <p>$<small class="precio">18000</small></p>
             <a href="#" class="button agregar-carrito" data-id="7">Comprar</a>
           </div>
+
           <div class="card">
-            <img src="assets/img/ropa3.webp" class="card-img">
-            <h5>Hoodie Hotdogz Mr. Charlie</h5>
-            <p>SKU: HTD-TSH023-1</p>
-            <p>S/.<small class="precio">90</small></p>
+            <img src="https://images.unsplash.com/photo-1599599810989-5ac4c0d8c2cc?w=300&h=300&fit=crop" alt="Jugo Natural" class="card-img">
+            <h5>Jugo Natural de Naranja Fresco</h5>
+            <p>SKU: JUG-008-LT</p>
+            <p>$<small class="precio">15000</small></p>
             <a href="#" class="button agregar-carrito" data-id="8">Comprar</a>
           </div>
+
           <div class="card">
-            <img src="assets/img/alimento3.webp" class="card-img">
-            <h5>Hills PD Metabolic Treats</h5>
-            <p>SKU: HPDMT</p>
-            <p>S/.<small class="precio">45</small></p>
+            <img src="https://images.unsplash.com/photo-1464454709131-ffd692591ee5?w=300&h=300&fit=crop" alt="Papaya Fresca" class="card-img">
+            <h5>Papaya Fresca Premium</h5>
+            <p>SKU: PAP-009-UND</p>
+            <p>$<small class="precio">12000</small></p>
             <a href="#" class="button agregar-carrito" data-id="9">Comprar</a>
           </div>
 
         </div>
-</main>
-  
+    </main>
 
-<footer class="footer-section">
-  <div class="copyright-area">
-      <div class="container-footer">
-          <div class="row-footer">
-              <div class="col-xl-6 col-lg-6 text-center text-lg-left">
-                  <div class="copyright-text">
-                      <p>Copyright &copy; 2020, todos los derechos reservados <a href="index.html">PETSHOP</a></p>
-                  </div>
-              </div>
-              <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
-                  <div class="footer-menu">
-                      <ul>
-                          <li><a href="nosotros.html">Nosotros</a></li>
-                          <li><a href="productos.html">Productos</a></li>
-                          <li><a href="contacto.html">Contacto</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
+    <footer>
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p>© 2025 AgroNet - Conectando productores y consumidores sostenibles del Valle del Cauca</p>
+        <p style="margin-top: 10px;">
+          <a href="index.html">Inicio</a> | 
+          <a href="https://teamucc.github.io/AgroNet/team">Equipo</a> | 
+          <a href="mailto:contacto@agronet.co">contacto@agronet.co</a>
+        </p>
       </div>
-  </div>
-</footer> 
-
+    </footer>
 
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script  src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script  src="assets/js/scripts.js"></script>
+    <script src="assets/js/scripts.js"></script>
     <script src="assets/js/carrito.js"></script>
     <script src="assets/js/pedido.js"></script>
     <script src="assets/js/compra.js"></script>
-</body>
+  </body>
 </html>
